@@ -30,6 +30,8 @@ const nav = [
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Netlify Identity: lets staff accept their invite email and set a password from any page. -->
+  <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Figtree:wght@400;500;600;700&display=swap">
 </head>
 <body>
@@ -103,6 +105,17 @@ const nav = [
       </div>
     </div>
   </footer>
+
+  <script is:inline>
+    // After a staff member accepts an invite or signs in, send them to the editor.
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', (user) => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
+        }
+      });
+    }
+  </script>
 
   <script>
     const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');

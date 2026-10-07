@@ -12,7 +12,7 @@ import { announcements } from '../lib/announcements';
         {announcements.map((a) => (
           <article class="card" data-show-from={a.showFrom} data-show-until={a.showUntil}>
             <h3>{a.title}</h3>
-            {a.details && <p>{a.details}</p>}
+            {a.details && <p class="details">{a.details}</p>}
             {a.link && <a class="card__link" href={a.link}>{a.linkLabel}</a>}
           </article>
         ))}
@@ -22,6 +22,7 @@ import { announcements } from '../lib/announcements';
 )}
 
 <style>
+  .details { white-space: pre-line; }
   .coming-up { padding-top: 0; }
   .stack { display: flex; flex-direction: column; gap: 22px; }
   h2 { font-size: 34px; margin-top: 6px; }

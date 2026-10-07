@@ -27,6 +27,24 @@ collections:
       - { label: Title, name: title, widget: string, hint: 'For example "Bulletin for October 11, 2026"' }
       - { label: Bulletin PDF, name: file, widget: file, allow_multiple: false }
 
+  - name: announcements
+    label: Announcements
+    label_singular: Announcement
+    description: Short notices like "Chicken Parm Dinner this Saturday!" Each one disappears by itself after its last day.
+    folder: src/content/announcements
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} (until {{showUntil}})"
+    sortable_fields: [showUntil, title]
+    fields:
+      - { label: Headline, name: title, widget: string, hint: 'For example "Chicken Parm Dinner this Saturday!"' }
+      - { label: Details, name: details, widget: text, required: false, hint: "Time, place, price, who to call. Keep it to a sentence or two." }
+      - { label: First day to show, name: showFrom, widget: datetime, date_format: "MMMM D, YYYY", time_format: false, format: "YYYY-MM-DD", picker_utc: true }
+      - { label: Last day to show, name: showUntil, widget: datetime, date_format: "MMMM D, YYYY", time_format: false, format: "YYYY-MM-DD", picker_utc: true, hint: "Usually the day of the event. It disappears the next day." }
+      - { label: Also show as a banner at the top of every page, name: banner, widget: boolean, default: false, required: false }
+      - { label: Link (optional), name: link, widget: string, required: false, hint: "A web address, or a page on this site like /parish-life" }
+      - { label: Link text, name: linkLabel, widget: string, required: false, default: "Learn more" }
+
   - name: settings
     label: Mass times & parish info
     editor: { preview: false }

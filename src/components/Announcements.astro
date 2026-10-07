@@ -1,0 +1,33 @@
+---
+import { announcements } from '../lib/announcements';
+---
+{announcements.length > 0 && (
+  <section class="section coming-up" data-announcements>
+    <div class="wrap stack">
+      <div>
+        <span class="eyebrow">Coming up</span>
+        <h2>Happening at St. Philip</h2>
+      </div>
+      <div class="cards">
+        {announcements.map((a) => (
+          <article class="card" data-show-from={a.showFrom} data-show-until={a.showUntil}>
+            <h3>{a.title}</h3>
+            {a.details && <p>{a.details}</p>}
+            {a.link && <a class="card__link" href={a.link}>{a.linkLabel}</a>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .coming-up { padding-top: 0; }
+  .stack { display: flex; flex-direction: column; gap: 22px; }
+  h2 { font-size: 34px; margin-top: 6px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+  .card { border: 1px solid var(--line); border-left: 0; border-top: 5px solid var(--gold-bright); border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 8px; background: #fffdf7; }
+  .card h3 { font-size: 22px; }
+  .card p { margin: 0; color: var(--body-ink); }
+  .card__link { font-weight: 700; text-decoration: none; margin-top: 4px; }
+</style>

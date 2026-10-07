@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import settings from '../data/settings.json';
+import { bannerAnnouncements } from '../lib/announcements';
 
 interface Props {
   title?: string;
@@ -37,6 +38,16 @@ const nav = [
 <body>
   <script is:inline>document.documentElement.classList.add('js');</script>
   <a class="skip" href="#main">Skip to content</a>
+
+  {bannerAnnouncements.map((a) => (
+    <div class="alert" data-show-from={a.showFrom} data-show-until={a.showUntil}>
+      <div class="wrap alert__inner">
+        <strong>{a.title}</strong>
+        {a.details && <span>{a.details}</span>}
+        {a.link && <a href={a.link}>{a.linkLabel}</a>}
+      </div>
+    </div>
+  ))}
 
   <div class="topbar">
     <div class="wrap topbar__inner">
@@ -107,6 +118,23 @@ const nav = [
   </footer>
 
   <script is:inline>
+    // Hide announcements outside their dates, so a notice disappears the day after it ends
+    // even if the site hasn't been rebuilt since.
+    (function () {
+      var d = new Date();
+      var today = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      document.querySelectorAll('[data-show-until]').forEach(function (el) {
+        var from = el.getAttribute('data-show-from') || '';
+        var until = el.getAttribute('data-show-until') || '';
+        if ((from && today < from) || (until && today > until)) el.hidden = true;
+      });
+      document.querySelectorAll('[data-announcements]').forEach(function (sec) {
+        if (!sec.querySelector('[data-show-until]:not([hidden])')) sec.hidden = true;
+      });
+    })();
+  </script>
+
+  <script is:inline>
     // After a staff member accepts an invite or signs in, send them to the editor.
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on('init', (user) => {
@@ -131,6 +159,11 @@ const nav = [
 <style>
   .skip { position: absolute; left: -9999px; }
   .skip:focus { left: 16px; top: 16px; z-index: 10; background: #fff; padding: 8px 12px; }
+
+  .alert { background: var(--gold-bright); color: var(--navy); font-size: 15px; }
+  .alert__inner { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; justify-content: center; text-align: center; padding-block: 10px; }
+  .alert a { color: var(--navy); font-weight: 700; }
+  [hidden] { display: none !important; }
 
   .topbar { background: var(--navy); color: #dfe7f2; font-size: 14px; }
   .topbar__inner { display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; align-items: center; padding-block: 8px; }

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Schedules from '../components/Schedules.astro';
+import Announcements from '../components/Announcements.astro';
 import settings from '../data/settings.json';
 import { bulletins, formatDate } from '../lib/bulletins';
 
@@ -53,6 +54,8 @@ const tiles = [
       ))}
     </div>
   </section>
+
+  <Announcements />
 
   <section class="section section--tint">
     <div class="wrap bulletin-row">

@@ -7,7 +7,7 @@ Christ promised to nourish his followers on earth and to welcome them to the hea
 
 ## First Communion
 
-Children in 2nd grade or above are invited to prepare for First Communion through the parish [Religious Education program](/parish-life#religious-education). For more information, call the Religious Education office at 860-429-2860.
+Children in 2nd grade or above are invited to prepare for First Communion through the parish Religious Education program. For more information, call the Religious Education office at 860-429-2860.
 
 ## Eucharistic Adoration
 

@@ -1,0 +1,22 @@
+---
+import settings from '../data/settings.json';
+---
+<div class="sched">
+  {settings.schedules.map((s) => (
+    <div class="sched__card">
+      <span class="sched__label">{s.label}</span>
+      <div class="sched__times">
+        {s.times.map((t) => <span>{t}</span>)}
+      </div>
+      {s.note && <span class="sched__note">{s.note}</span>}
+    </div>
+  ))}
+</div>
+
+<style>
+  .sched { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  .sched__card { border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
+  .sched__label { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
+  .sched__times { display: flex; flex-direction: column; font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.35; }
+  .sched__note { color: var(--muted); font-size: 15px; }
+</style>

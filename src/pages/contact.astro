@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import settings from '../data/settings.json';
+---
+<Base title="Contact Us" description="Address, phone and office hours for St. Philip the Apostle Church in Ashford, CT.">
+  <PageHero title="Contact Us" intro="We're glad to help. Call or stop by the parish office." />
+  <section class="section">
+    <div class="wrap grid">
+      <div class="card">
+        <span class="eyebrow">Visit</span>
+        <p><strong>{settings.parishName} Church</strong><br>{settings.address}<br>{settings.cityStateZip}</p>
+        <a class="btn btn--primary" href={settings.mapUrl}>Get directions</a>
+      </div>
+      <div class="card">
+        <span class="eyebrow">Parish office</span>
+        <p>
+          Phone: <a href={`tel:${settings.phone}`}>{settings.phone}</a><br>
+          Email: {settings.email ? <a href={`mailto:${settings.email}`}>{settings.email}</a> : <span class="placeholder-text">[PARISH EMAIL]</span>}<br>
+          {settings.officeHours}
+        </p>
+      </div>
+      <div class="card card--alert">
+        <span class="eyebrow">Emergency</span>
+        <p>If someone needs the Anointing of the Sick in an emergency, call Fr. Michael's cell phone at <a href="tel:860-334-5306">860-334-5306</a>.</p>
+      </div>
+      <div class="card">
+        <span class="eyebrow">Parish staff</span>
+        <ul>
+          {settings.staff.map((s) => <li><strong>{s.name}</strong>, {s.role}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .card { background: var(--tint); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .card--alert { background: #fdf1e3; }
+  .card p { margin: 0; color: var(--body-ink); line-height: 1.7; }
+  .card ul { margin: 0; padding-left: 18px; color: var(--body-ink); display: flex; flex-direction: column; gap: 6px; }
+  .card strong { color: var(--navy); }
+</style>

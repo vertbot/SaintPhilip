@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Schedules from '../../components/Schedules.astro';
+import settings from '../../data/settings.json';
+import { sacraments } from '../../lib/sacraments';
+---
+<Base title="Mass & Sacraments" description="Mass, Confession and Adoration times, and how to arrange Baptism, First Communion, Confirmation, Marriage and Anointing of the Sick.">
+  <PageHero title="Mass & Sacraments" intro="Join us for Mass, and find out how to celebrate the sacraments at St. Philip." />
+
+  <section class="section">
+    <div class="wrap stack">
+      <div class="head-row">
+        <h2>Mass times</h2>
+        <span class="muted">{settings.noMassNote}</span>
+      </div>
+      <Schedules />
+    </div>
+  </section>
+
+  <section id="sacraments" class="section section--tint">
+    <div class="wrap stack">
+      <h2>The sacraments</h2>
+      <div class="cards">
+        {sacraments.map((s) => (
+          <a class="card" href={`/mass-and-sacraments/${s.slug}`}>
+            <h3>{s.title}</h3>
+            <p>{s.summary}</p>
+            <span class="card__more">Learn more</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .stack { display: flex; flex-direction: column; gap: 28px; }
+  .head-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; }
+  h2 { font-size: 34px; }
+  .muted { color: var(--muted); font-size: 15px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .card { background: #ffffff; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: var(--navy); border: 1px solid var(--line); }
+  .card:hover { color: var(--navy); border-color: var(--blue); }
+  .card h3 { font-size: 24px; }
+  .card p { margin: 0; color: var(--body-ink); flex-grow: 1; }
+  .card__more { color: var(--blue); font-weight: 700; }
+</style>

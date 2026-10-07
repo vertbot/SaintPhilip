@@ -1,0 +1,54 @@
+---
+// Simple text pages (About, Parish Life, Learn About the Faith, New Here, Give).
+// Their text lives in src/content/pages and is editable at /admin/.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import settings from '../data/settings.json';
+
+export async function getStaticPaths() {
+  const modules = import.meta.glob<any>('../content/pages/*.md', { eager: true });
+  return Object.entries(modules).map(([path, mod]) => ({
+    params: { page: path.split('/').pop()!.replace(/\.md$/, '') },
+    props: { mod },
+  }));
+}
+
+const { page } = Astro.params;
+const { mod } = Astro.props;
+const { Content, frontmatter } = mod;
+---
+<Base title={frontmatter.title} description={frontmatter.intro}>
+  <PageHero title={frontmatter.title} intro={frontmatter.intro} />
+  <section class="section">
+    <div class="wrap layout">
+      <article class="prose"><Content /></article>
+      {page === 'about' && (
+        <aside class="side">
+          <div class="side__card">
+            <span class="eyebrow">Our mission</span>
+            <p class="side__quote">“{settings.mission}”</p>
+          </div>
+          <div class="side__card">
+            <span class="eyebrow">Parish staff</span>
+            <ul class="side__list">
+              {settings.staff.map((s) => <li><strong>{s.name}</strong><br>{s.role}</li>)}
+            </ul>
+          </div>
+        </aside>
+      )}
+      {page === 'give' && settings.givingUrl && (
+        <aside class="side"><a class="btn btn--gold" href={settings.givingUrl}>Give online</a></aside>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .layout { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+  .layout .prose { flex: 999 1 560px; min-width: 0; }
+  .side { flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  .side__card { background: var(--tint); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .side__quote { margin: 0; font-family: var(--display); font-size: 20px; line-height: 1.45; }
+  .side__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; color: var(--body-ink); }
+  .side__list strong { color: var(--navy); }
+</style>

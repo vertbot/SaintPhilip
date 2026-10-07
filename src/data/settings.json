@@ -1,0 +1,41 @@
+{
+  "parishName": "St. Philip the Apostle",
+  "tagline": "Catholic Church · Ashford, Connecticut",
+  "address": "64 Pompey Hollow Road",
+  "cityStateZip": "Ashford, CT 06278",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=64+Pompey+Hollow+Road+Ashford+CT+06278",
+  "phone": "860-429-2860",
+  "email": "",
+  "officeHours": "Monday to Thursday, 9:30 am to 2:30 pm",
+  "givingUrl": "",
+  "noMassNote": "No Mass on Mondays",
+  "schedules": [
+    {
+      "label": "Weekend Mass",
+      "times": ["Saturday 4:30 pm", "Sunday 9:00 am", "Sunday 11:00 am"],
+      "note": ""
+    },
+    {
+      "label": "Weekday Mass",
+      "times": ["Tuesday to Friday", "8:00 am"],
+      "note": ""
+    },
+    {
+      "label": "Confession",
+      "times": ["Saturday", "3:00 to 4:30 pm"],
+      "note": "or by appointment"
+    },
+    {
+      "label": "Adoration",
+      "times": ["Fridays after the 8:00 am Mass"],
+      "note": "Divine Mercy Chaplet 11:50 am, Benediction at noon"
+    }
+  ],
+  "staff": [
+    { "name": "Fr. Michael Giannitelli", "role": "Pastor" },
+    { "name": "Ann Phillips", "role": "Secretary" },
+    { "name": "Patricia LaBonte", "role": "Bookkeeper" },
+    { "name": "Paula Vincent", "role": "Bulletin Editor" }
+  ],
+  "mission": "We, the people of God of St. Philip the Apostle and Saint Jude's Church, are called to witness and proclaim God's life among us through a community of prayer, praise and thanksgiving."
+}

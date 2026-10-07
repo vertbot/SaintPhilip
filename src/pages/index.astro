@@ -1,0 +1,145 @@
+---
+import Base from '../layouts/Base.astro';
+import Schedules from '../components/Schedules.astro';
+import settings from '../data/settings.json';
+import { bulletins, formatDate } from '../lib/bulletins';
+
+const [latest, ...past] = bulletins;
+const recent = past.slice(0, 2);
+
+const tiles = [
+  { href: latest ? latest.file : '/bulletins', label: "This Week's Bulletin", icon: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h6"></path>' },
+  { href: '/give', label: 'Give Online', icon: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path>' },
+  { href: '/new-here', label: 'New Here? Register', icon: '<circle cx="9" cy="8" r="4"></circle><path d="M2 21v-1a6 6 0 0 1 12 0v1M19 8v6M16 11h6"></path>' },
+  { href: '/mass-and-sacraments#sacraments', label: 'Sacraments', icon: '<path d="M7 3h10c0 5-2 8-5 8S7 8 7 3zM12 11v7M8 21h8M10 18h4"></path>' },
+  { href: '/contact', label: 'Contact Us', icon: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path>' },
+];
+---
+<Base>
+  <section class="hero section--tint">
+    <div class="wrap hero__inner">
+      <div class="hero__text">
+        <span class="eyebrow">All are welcome</span>
+        <h1>Join us this weekend in Ashford.</h1>
+        <p class="hero__lede">A community of prayer, praise and thanksgiving. Whether you were baptized here or are visiting for the first time, there is a place for you at St. Philip.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="#times">Mass Times</a>
+          <a class="btn btn--ghost" href="/new-here">I'm new here</a>
+        </div>
+      </div>
+      <div class="photo-placeholder hero__photo">[PHOTO: St. Philip church exterior on a bright day, or the congregation at Sunday Mass]</div>
+    </div>
+  </section>
+
+  <section id="times" class="section">
+    <div class="wrap stack">
+      <div class="head-row">
+        <h2>Mass &amp; Confession</h2>
+        <span class="muted">{settings.noMassNote}</span>
+      </div>
+      <Schedules />
+    </div>
+  </section>
+
+  <section aria-label="Quick links" class="tiles-section">
+    <div class="wrap tiles">
+      {tiles.map((t) => (
+        <a class="tile" href={t.href}>
+          <span class="tile__icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={t.icon}></svg>
+          </span>
+          {t.label}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap bulletin-row">
+      <div class="bulletin-card">
+        <span class="eyebrow">This week's bulletin</span>
+        {latest ? (
+          <>
+            <h2>{formatDate(latest.date)}</h2>
+            <p class="body">Mass intentions, parish announcements and upcoming events, posted every week by the parish office.</p>
+            <div class="btn-row"><a class="btn btn--primary" href={latest.file}>Read the bulletin (PDF)</a></div>
+          </>
+        ) : (
+          <p class="body">This week's bulletin will be posted soon.</p>
+        )}
+      </div>
+      <div class="past">
+        <h3>Past bulletins</h3>
+        {recent.map((b) => (
+          <a class="past__item" href={b.file}>{formatDate(b.date)} <span>PDF</span></a>
+        ))}
+        <a class="past__all" href="/bulletins">See all bulletins</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap mission">
+      <div class="photo-placeholder mission__photo">[PHOTO: Fr. Michael Giannitelli with parishioners]</div>
+      <div class="mission__text">
+        <span class="eyebrow">Our mission</span>
+        <p class="mission__quote">“{settings.mission}”</p>
+        <p class="body">New to the parish? We'd love to meet you. Register with the parish and the office will be in touch.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/new-here">Register with the parish</a>
+          <a class="btn btn--ghost" href="/about">Our history</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--navy give">
+    <div class="wrap give__inner">
+      <div class="give__text">
+        <h2>Support St. Philip</h2>
+        <p>Give once or set up a weekly offering online.</p>
+      </div>
+      <a class="btn btn--gold" href="/give">Give online</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero__inner { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; padding-block: 56px; }
+  .hero__text { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  .hero h1 { font-size: clamp(36px, 5vw, 52px); line-height: 1.08; }
+  .hero__lede { margin: 0; font-size: 19px; color: var(--body-ink); max-width: 34em; }
+  .hero__photo { flex: 1 1 420px; min-width: 0; height: 380px; }
+
+  .stack { display: flex; flex-direction: column; gap: 28px; }
+  .head-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; }
+  .head-row h2 { font-size: 36px; }
+  .muted { color: var(--muted); font-size: 15px; }
+  .body { margin: 0; color: var(--body-ink); }
+
+  .tiles-section { padding-bottom: 56px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+  .tile { background: var(--tint); border-radius: 16px; padding: 26px 16px; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; text-decoration: none; color: var(--navy); font-weight: 700; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .tile:hover { color: var(--navy); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(20, 35, 59, 0.1); }
+  .tile__icon { width: 64px; height: 64px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; }
+  @media (prefers-reduced-motion: reduce) { .tile { transition: none; } .tile:hover { transform: none; } }
+
+  .bulletin-row { display: flex; flex-wrap: wrap; gap: 32px; }
+  .bulletin-card { flex: 2 1 420px; min-width: 0; background: #ffffff; border-radius: 18px; padding: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .bulletin-card h2 { font-size: 34px; }
+  .past { flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+  .past h3 { font-size: 24px; }
+  .past__item { background: #ffffff; border-radius: 12px; padding: 16px 20px; text-decoration: none; color: var(--navy); font-weight: 600; display: flex; justify-content: space-between; gap: 12px; }
+  .past__item span { color: var(--blue); }
+  .past__all { font-weight: 700; text-decoration: none; padding: 4px 2px; }
+
+  .mission { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; padding-block: 8px; }
+  .mission__photo { flex: 1 1 340px; min-width: 0; height: 320px; }
+  .mission__text { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+  .mission__quote { margin: 0; font-family: var(--display); font-size: clamp(21px, 2.4vw, 26px); line-height: 1.4; }
+
+  .give__inner { display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; align-items: center; padding-block: 48px; }
+  .give__text { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .give__text h2 { font-size: 32px; }
+  .give__text p { margin: 0; color: var(--footer-ink); }
+</style>

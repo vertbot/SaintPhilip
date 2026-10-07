@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { sacraments } from '../../lib/sacraments';
+
+export function getStaticPaths() {
+  return sacraments.map((s) => ({ params: { slug: s.slug }, props: { sacrament: s } }));
+}
+
+const { sacrament } = Astro.props;
+const { Content } = sacrament;
+const others = sacraments.filter((s) => s.slug !== sacrament.slug);
+---
+<Base title={sacrament.title} description={sacrament.summary}>
+  <PageHero eyebrow="Sacraments" title={sacrament.title} intro={sacrament.summary} />
+  <section class="section">
+    <div class="wrap layout">
+      <article class="prose"><Content /></article>
+      <aside class="side">
+        <span class="eyebrow">Other sacraments</span>
+        {others.map((s) => <a href={`/mass-and-sacraments/${s.slug}`}>{s.title}</a>)}
+        <a class="back" href="/mass-and-sacraments">Mass times</a>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .layout { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+  .layout .prose { flex: 999 1 560px; min-width: 0; }
+  .side { flex: 1 1 240px; min-width: 0; background: var(--tint); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .side a { font-weight: 600; text-decoration: none; }
+  .side .back { margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--line-strong); }
+</style>

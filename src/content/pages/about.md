@@ -18,4 +18,4 @@ The church was completed in 1937, and the parish celebrated its Golden Jubilee i
 - [The parish farmhouse at 48 Pompey Hollow Road](https://historicbuildingsct.com/?p=26042), Historic Buildings of Connecticut
 - [St. Philip the Apostle Church and Paul Chalfin](https://buildingsofnewengland.com/tag/paul-chalfin/), Buildings of New England
 - [Father William J. Dunn](https://buildingsofnewengland.com/tag/father-william-j-dunn/), Buildings of New England
-- ["Willington parish to share pastor"](https://www.bishop-accountability.org/news2008/01_02/2008_02_13_Soper_WillingtonPastor.htm), Journal Inquirer, February 13, 2008
+- [St. Jude and St. Philip to share a pastor](https://www.bishop-accountability.org/news2008/01_02/2008_02_13_Soper_WillingtonPastor.htm), Journal Inquirer, February 13, 2008

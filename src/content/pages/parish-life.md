@@ -6,7 +6,7 @@ groups:
     photo: ""
     description: ""
   - name: Bi-Monthly Dinners
-    photo: ""
+    photo: /uploads/bi-monthly-dinners.jpg
     description: ""
   - name: Knights of Columbus
     photo: ""

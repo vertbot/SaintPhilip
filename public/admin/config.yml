@@ -71,6 +71,17 @@ collections:
       - { label: Title, name: title, widget: string }
       - { label: Intro line, name: intro, widget: text }
       - { label: Page text, name: body, widget: markdown }
+      - label: Groups (shown as photo cards; used on Parish Life)
+        name: groups
+        widget: list
+        required: false
+        summary: "{{fields.name}}"
+        media_folder: /public/uploads/groups
+        public_folder: /uploads/groups
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Photo, name: photo, widget: image, required: false }
+          - { label: Description, name: description, widget: text, required: false, hint: "When and where it meets, and who to contact" }
 
   - name: sacraments
     label: Sacraments

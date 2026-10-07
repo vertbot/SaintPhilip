@@ -36,6 +36,23 @@ const { Content, frontmatter } = mod;
           </div>
         </aside>
       )}
+      {frontmatter.groups?.length > 0 && (
+        <div class="groups">
+          {frontmatter.groups.map((g: { name: string; photo?: string; description?: string }) => (
+            <article class="group">
+              {g.photo
+                ? <img class="group__photo" src={g.photo} alt={g.name} loading="lazy" />
+                : <div class="photo-placeholder group__photo">[PHOTO: {g.name}]</div>}
+              <div class="group__body">
+                <h2>{g.name}</h2>
+                {g.description
+                  ? <p>{g.description}</p>
+                  : <p><span class="placeholder-text">[ADD: when and where it meets, and who to contact]</span></p>}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
       {page === 'give' && settings.givingUrl && (
         <aside class="side"><a class="btn btn--gold" href={settings.givingUrl}>Give online</a></aside>
       )}
@@ -46,6 +63,12 @@ const { Content, frontmatter } = mod;
 <style>
   .layout { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
   .layout .prose { flex: 999 1 560px; min-width: 0; }
+  .groups { flex: 1 1 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+  .group { background: var(--tint); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; }
+  .group__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 0; }
+  .group__body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 8px; }
+  .group__body h2 { font-size: 24px; }
+  .group__body p { margin: 0; color: var(--body-ink); }
   .side { flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
   .side__card { background: var(--tint); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
   .side__quote { margin: 0; font-family: var(--display); font-size: 20px; line-height: 1.45; }
